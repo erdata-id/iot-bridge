@@ -1,0 +1,31 @@
+{
+    "name": "erdata-id/iot-endpoint",
+    "description": "a set of libraries for receiving data from Erdata devices.",
+    "type": "library",
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Erdata",
+            "email": "admin@erdata.id"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Erdata\\IotBridge\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Erdata\\IotBridge\\IotBridgeServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}
