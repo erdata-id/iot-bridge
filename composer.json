@@ -1,5 +1,5 @@
 {
-    "name": "erdata-id/iot-endpoint",
+    "name": "erdata-id/iot-bridge",
     "description": "a set of libraries for receiving data from Erdata devices.",
     "type": "library",
     "require": {
