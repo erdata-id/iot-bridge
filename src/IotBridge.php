@@ -3,7 +3,6 @@
 namespace Erdata\IotBridge;
 
 use Illuminate\Http\Request;
-use Erdata\IotBridge\Encryption;
 
 class IotBridge
 {
