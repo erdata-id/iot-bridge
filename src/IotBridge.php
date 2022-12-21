@@ -8,11 +8,18 @@ class IotBridge
 {
     private $config;
 
-    public function __construct() {
-        $this->config = config('iotbridge');
+    public function __construct($config) {
+        $this->config = $config;
     }
 
     public function unwrap(Request $request) {
+        if (!check_config()) {
+            return $this->respondWithMessage(false, 'No config found.');
+        }
+
+        $app_id = $this->config['app_id'] ?? config('iotbridge.app_id');
+        $app_secret = $this->config['app_secret'] ?? config('iotbridge.app_secret');
+
         if (!$request->hasHeader('X-Endpoint-Id')) {
             return $this->respondWithMessage(false, 'Invalid request');
         }
@@ -23,11 +30,11 @@ class IotBridge
             return $this->respondWithMessage(false, 'Invalid data format');
         }
 
-        if ($endpoint_id != $this->config['app_id']) {
+        if ($endpoint_id != $app_id) {
             return $this->respondWithMessage(false, 'Invalid API endpoint ID');
         }
 
-        $plainText = $this->decrypt($request->input('data'), $this->config['app_secret'] . $this->config['app_id']);
+        $plainText = $this->decrypt($request->input('data'), $app_secret . $app_id);
 
         if (is_null($plainText)) {
             return $this->respondWithMessage(false, 'Error decrypting data');

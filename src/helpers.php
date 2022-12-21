@@ -47,3 +47,14 @@ if (!function_exists('array_delete')) {
         }
     }
 }
+
+if (!function_exists('check_config')) {
+    /**
+     * Check config exists
+     * 
+     * @return boolean
+     */
+    function check_config() {
+        return file_exists(config_path('iotbridge.php'));
+    }
+}
