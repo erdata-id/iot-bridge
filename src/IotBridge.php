@@ -14,11 +14,17 @@ class IotBridge
     }
 
     public function unwrap(Request $request) {
-        if (!$request->filled('id') || !$request->filled('data')) {
+        if (!$request->hasHeader('X-Endpoint-Id')) {
+            return $this->respondWithMessage(false, 'Invalid request');
+        }
+
+        $endpoint_id = $request->header('X-Endpoint-Id');
+
+        if (!$request->filled('ts') || !$request->filled('data')) {
             return $this->respondWithMessage(false, 'Invalid data format');
         }
 
-        if ($request->input('id') != $this->config['app_id']) {
+        if ($endpoint_id != $this->config['app_id']) {
             return $this->respondWithMessage(false, 'Invalid API endpoint ID');
         }
 
