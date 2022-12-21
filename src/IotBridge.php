@@ -8,8 +8,8 @@ class IotBridge
 {
     private $config;
 
-    public function __construct($config) {
-        $this->config = $config;
+    public function __construct() {
+        $this->config = config('iotbridge');
     }
 
     public function unwrap(Request $request) {
