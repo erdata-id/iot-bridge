@@ -8,7 +8,7 @@ class IotBridge
 {
     private $config;
 
-    public function __construct($config) {
+    public function __construct($config = null) {
         $this->config = $config;
     }
 
