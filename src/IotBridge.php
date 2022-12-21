@@ -24,14 +24,12 @@ class IotBridge
             return $this->respondWithMessage(false, 'Invalid request');
         }
 
-        $endpoint_id = $request->header('X-Endpoint-Id');
+        if ($request->header('X-Endpoint-Id') != $app_id) {
+            return $this->respondWithMessage(false, 'Invalid API endpoint ID');
+        }
 
         if (!$request->filled('ts') || !$request->filled('data')) {
             return $this->respondWithMessage(false, 'Invalid data format');
-        }
-
-        if ($endpoint_id != $app_id) {
-            return $this->respondWithMessage(false, 'Invalid API endpoint ID');
         }
 
         $plainText = $this->decrypt($request->input('data'), $app_secret . $app_id);
