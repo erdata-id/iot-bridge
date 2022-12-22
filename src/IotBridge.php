@@ -32,13 +32,13 @@ class IotBridge
             return $this->respondWithMessage(false, 'Invalid data format');
         }
 
-        $plainText = $this->decrypt($request->input('data'), $app_secret . $app_id);
+        $plain_text = $this->decrypt($request->input('data'), $app_secret . $app_id);
 
-        if (is_null($plainText)) {
+        if (is_null($plain_text) || $plain_text == false) {
             return $this->respondWithMessage(false, 'Error decrypting data');
         }
 
-        return $this->respondWithData(true, $plainText);
+        return $this->respondWithData(true, $plain_text);
     }
 
     public function respondWithData($status, $data) {
